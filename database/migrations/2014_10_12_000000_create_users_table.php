@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaymentActivityTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreatePaymentActivityTable extends Migration
      */
     public function up()
     {
-        Schema::create('payment_activity', function (Blueprint $table) {
-            $table->id("payment_activity_id");
-            $table->foreignId("payment_info_id")->constrained("payment_info","payment_info_id");
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class CreatePaymentActivityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payment_activity');
+        Schema::dropIfExists('users');
     }
 }
